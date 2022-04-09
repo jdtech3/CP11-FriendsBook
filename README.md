@@ -17,10 +17,14 @@
 > 
 > Friends should be objects  I will let you decide how you want to code them.  You decide which fields you think are best.
 
+### Screenshot
+
+![Friends Book screenshot](https://i.imgur.com/ijkfqW3.png)
+
 ### Download
 
 See releases or build JAR with `ca.j0e.friendsbook.FriendsBookLauncher` as main class.
-s
+
 ---
 
 *This project is licensed under the MIT license. For more information, please see [LICENSE](./LICENSE).*
