@@ -1,0 +1,3 @@
+Joe,000-000-0000,mail@j0e.ca
+John,123-456-7890,john@example.com
+Rosemary,098-765-4321,rosemary@example.com

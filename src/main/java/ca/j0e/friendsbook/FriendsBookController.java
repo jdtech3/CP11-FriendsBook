@@ -8,7 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -36,6 +39,12 @@ public class FriendsBookController implements Initializable {
 
     @FXML
     private Button deleteFriendButton;
+
+    @FXML
+    private Label ioStatusLabel;
+
+    // File chooser for load/save
+    private final FileChooser fileChooser = new FileChooser();
 
     // Listener that listens for new selected friend and updates friend info labels accordingly
     private final ChangeListener<Friend> selectionChangeListener = new ChangeListener<>() {
@@ -88,10 +97,32 @@ public class FriendsBookController implements Initializable {
         friendsList.getItems().remove(selected);
     }
 
+    // Event handler for load button
+    @FXML
+    protected void loadFriends() throws IOException {
+        File file = fileChooser.showOpenDialog(friendsList.getScene().getWindow());
+        String status = IOHandler.loadFriends(file, friendsList);
+        ioStatusLabel.setText(status);
+    }
+
+    // Event handler for save button
+    @FXML
+    protected void saveFriends() throws IOException {
+        File file = fileChooser.showSaveDialog(friendsList.getScene().getWindow());
+        String status = IOHandler.saveFriends(file, friendsList);
+        ioStatusLabel.setText(status);
+    }
+
     // Initialization of view
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Set change listener
         friendsList.getSelectionModel().selectedItemProperty().addListener(selectionChangeListener);
+
+        // Set file chooser config
+        fileChooser.setTitle("Load/save your friends to disk!");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Friends Book Friends Files", "*.txt"));
+        fileChooser.setInitialDirectory(new File("."));
+        fileChooser.setInitialFileName("my-friends.txt");
     }
 }
